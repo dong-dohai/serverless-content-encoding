@@ -87,13 +87,21 @@ class ContentEncoding {
    */
   afterDeploy() {
     const stage = this.options.stage || this.serverless.service.provider.stage;
+    let numberOfBytes = 0;
 
-    if (!this.serverless.service.custom.contentEncoding || !isNumber(this.serverless.service.custom.contentEncoding.minimumCompressionSize)) {
-      return this.getApiId(stage).then(apiId => this.disableContentEncoding(apiId).then(() => this.createDeployment(apiId, stage)));
+    if (this.serverless.service.custom.contentEncoding) {
+      const { minimumCompressionSize } = this.serverless.service.custom.contentEncoding;
+
+      if ((!isNumber(minimumCompressionSize) || minimumCompressionSize < 0) && minimumCompressionSize !== null) {
+        throw Error('Minimum compression size must be a Integer which greater than 0 or null');
+      }
+      numberOfBytes = minimumCompressionSize;
     }
 
-    const { minimumCompressionSize } = this.serverless.service.custom.contentEncoding;
-    return this.getApiId(stage).then(apiId => this.enableContentEncoding(apiId, minimumCompressionSize).then(() => this.createDeployment(apiId, stage)));
+    if (numberOfBytes === null) {
+      return this.getApiId(stage).then(apiId => this.disableContentEncoding(apiId).then(() => this.createDeployment(apiId, stage)));
+    }
+    return this.getApiId(stage).then(apiId => this.enableContentEncoding(apiId, numberOfBytes).then(() => this.createDeployment(apiId, stage)));
   }
 }
 

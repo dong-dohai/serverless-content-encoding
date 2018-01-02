@@ -1,6 +1,6 @@
 # Serverless Content Encoding
 
-A serverless plugin to enable `Content Encoding` feature in API Gateway for lambda function response compression.
+A serverless plugin to enable [Content Encoding feature in API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-gzip-compression-decompression.html) for lambda function response compression.
 
 ### Install
 
@@ -27,6 +27,7 @@ custom:
     minimumCompressionSize: 10 # Minimum body size required for compression in bytes
 ```
 
+`minimumCompressionSize` must be an Integer which greater than 0 or null (if you want to disable content encoding)
 ### Usage
 
 This plugin will be triggered during deployment process
