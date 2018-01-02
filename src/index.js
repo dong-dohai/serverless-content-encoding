@@ -93,7 +93,7 @@ class ContentEncoding {
       const { minimumCompressionSize } = this.serverless.service.custom.contentEncoding;
 
       if ((!isNumber(minimumCompressionSize) || minimumCompressionSize < 0) && minimumCompressionSize !== null) {
-        throw Error('Minimum compression size must be a Integer which greater than 0 or null');
+        throw Error('Minimum compression size must be an Integer which greater than 0 or null');
       }
       numberOfBytes = minimumCompressionSize;
     }
