@@ -24,10 +24,12 @@ plugins:
 
 custom:
   contentEncoding:
-    minimumCompressionSize: 10 # Minimum body size required for compression in bytes
+    minimumCompressionSize: 0 # Minimum body size required for compression in bytes
 ```
 
-`minimumCompressionSize` must be an Integer which greater than 0 or null (if you want to disable content encoding)
+- `minimumCompressionSize` must be an Integer which greater than or equal 0.
+- If `contentEncoding` is not configured, `minimumCompressionSize` will be set to default value which is 0 bytes.
+- If you want to disable Content Encoding, set `minimumCompressionSize` to `null`.
 ### Usage
 
 This plugin will be triggered during deployment process
