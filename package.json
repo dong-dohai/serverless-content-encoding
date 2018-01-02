@@ -1,6 +1,6 @@
 {
   "name": "serverless-content-encoding",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "src/index.js",
   "repository": "git@github.com:xeno-dohai/serverless-content-encoding.git",
   "author": "Dong DO HAI <dong.do.hai@temando.com>",
