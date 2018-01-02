@@ -2,9 +2,16 @@
   "name": "serverless-content-encoding",
   "version": "1.0.10",
   "main": "src/index.js",
-  "repository": "git@src.temando.io:dong.do.hai/serverless-content-encoding.git",
+  "repository": "git@github.com:xeno-dohai/serverless-content-encoding.git",
   "author": "Dong DO HAI <dong.do.hai@temando.com>",
   "license": "MIT",
+  "keywords": [
+    "serverless",
+    "content-encoding",
+    "gzip",
+    "api-gateway",
+    "compression"
+  ],
   "devDependencies": {
     "eslint": "^4.14.0",
     "eslint-config-airbnb-base": "^12.1.0",
