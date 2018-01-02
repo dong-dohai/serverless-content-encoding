@@ -34,3 +34,7 @@ This plugin will be triggered during deployment process
 ```
 $ serverless deploy
 ```
+
+### Note
+
+This plugin is to enable Content Encoding on API Gateway for response compression. If your are looking for binary files support, please use [serverless-apigw-binary](https://www.npmjs.com/package/serverless-apigw-binary)

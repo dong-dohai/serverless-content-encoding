@@ -1,3 +1,5 @@
+const isNumber = require('is-number');
+
 class ContentEncoding {
   constructor(serverless, options) {
     this.options = options || {};
@@ -20,7 +22,6 @@ class ContentEncoding {
         let apiUrl;
         output.filter(entry => entry.OutputKey.match('ServiceEndpoint')).forEach((entry) => { apiUrl = entry.OutputValue; });
         const apiId = apiUrl.match('https://(.*)\\.execute-api')[1];
-        this.serverless.cli.log(`API ID: ${apiId}`);
         resolve(apiId);
       });
     });
@@ -87,7 +88,7 @@ class ContentEncoding {
   afterDeploy() {
     const stage = this.options.stage || this.serverless.service.provider.stage;
 
-    if (!this.serverless.service.custom.contentEncoding || !this.serverless.service.custom.contentEncoding.minimumCompressionSize) {
+    if (!this.serverless.service.custom.contentEncoding || !isNumber(this.serverless.service.custom.contentEncoding.minimumCompressionSize)) {
       return this.getApiId(stage).then(apiId => this.disableContentEncoding(apiId).then(() => this.createDeployment(apiId, stage)));
     }
 
