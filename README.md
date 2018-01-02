@@ -1,22 +1,22 @@
 # Serverless Content Encoding
 
-This plugin automates the process of enabling Content Encoding in API Gateway
+A serverless plugin to enable `Content Encoding` feature in API Gateway for lambda function response compression.
 
-### Installing
+### Install
 
 Using yarn:
 ```
-yarn add -D serverless-content-encoding
+$ yarn add -D serverless-content-encoding
 ```
 
 Using npm:
 ```
-npm install --save-dev serverless-content-encoding
+$ npm install --save-dev serverless-content-encoding
 ```
 
 ### Configuration
 
-_serverless.yml_
+Add the plugin and its configuration to your `serverless.yml` file:
 
 ```yaml
 plugins:

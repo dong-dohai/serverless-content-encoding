@@ -4,7 +4,7 @@ class ContentEncoding {
     this.serverless = serverless;
     this.provider = this.serverless.getProvider(this.serverless.service.provider.name);
     this.hooks = {
-      'after:deploy:deploy': this.afterDeploy.bind(this)
+      'after:deploy:deploy': this.afterDeploy.bind(this),
     };
   }
 
@@ -14,12 +14,12 @@ class ContentEncoding {
    * @param {String} stage Stage name
    */
   getApiId(stage) {
-    return new Promise(resolve => {
-      this.provider.request('CloudFormation', 'describeStacks', { StackName: this.provider.naming.getStackName(stage) }).then(resp => {
+    return new Promise((resolve) => {
+      this.provider.request('CloudFormation', 'describeStacks', { StackName: this.provider.naming.getStackName(stage) }).then((resp) => {
         const output = resp.Stacks[0].Outputs;
         let apiUrl;
-        output.filter(entry => entry.OutputKey.match('ServiceEndpoint')).forEach(entry => apiUrl = entry.OutputValue);
-        const apiId = apiUrl.match('https:\/\/(.*)\\.execute-api')[1];
+        output.filter(entry => entry.OutputKey.match('ServiceEndpoint')).forEach((entry) => { apiUrl = entry.OutputValue; });
+        const apiId = apiUrl.match('https://(.*)\\.execute-api')[1];
         this.serverless.cli.log(`API ID: ${apiId}`);
         resolve(apiId);
       });
@@ -48,10 +48,10 @@ class ContentEncoding {
   enableContentEncoding(apiId, minimumCompressionSize) {
     this.serverless.cli.log(`Enabling API Gateway Content Encoding with minimum compression size = ${minimumCompressionSize}`);
     const patchOperations = [{
-      op: "replace",
-      path: "/minimumCompressionSize",
+      op: 'replace',
+      path: '/minimumCompressionSize',
       value: `${minimumCompressionSize}`,
-   }];
+    }];
 
     return this.updateRestApi(apiId, patchOperations);
   }
@@ -62,11 +62,11 @@ class ContentEncoding {
    * @param {*} apiId Target REST Api ID
    */
   disableContentEncoding(apiId) {
-    this.serverless.cli.log(`Disabling API Gateway Content Encoding`);
+    this.serverless.cli.log('Disabling API Gateway Content Encoding');
     const patchOperations = [{
-      op: "replace",
-      path: "/minimumCompressionSize",
-   }];
+      op: 'replace',
+      path: '/minimumCompressionSize',
+    }];
 
     return this.updateRestApi(apiId, patchOperations);
   }
@@ -89,19 +89,11 @@ class ContentEncoding {
     const stage = this.options.stage || this.serverless.service.provider.stage;
 
     if (!this.serverless.service.custom.contentEncoding || !this.serverless.service.custom.contentEncoding.minimumCompressionSize) {
-      return this.getApiId.then(apiId => {
-        return this.disableContentEncoding(apiId).then(() => {
-          return this.createDeployment(apiId.stage);
-        })
-      });
+      return this.getApiId.then(apiId => this.disableContentEncoding(apiId).then(() => this.createDeployment(apiId.stage)));
     }
 
     const { minimumCompressionSize } = this.serverless.service.custom.contentEncoding;
-    return this.getApiId(stage).then(apiId => {
-      return this.enableContentEncoding(apiId, minimumCompressionSize).then(() => {
-        return this.createDeployment(apiId, stage);
-      });
-    });
+    return this.getApiId(stage).then(apiId => this.enableContentEncoding(apiId, minimumCompressionSize).then(() => this.createDeployment(apiId, stage)));
   }
 }
 
