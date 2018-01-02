@@ -32,5 +32,5 @@ custom:
 This plugin will be triggered during deployment process
 
 ```
-serverless deploy
+$ serverless deploy
 ```

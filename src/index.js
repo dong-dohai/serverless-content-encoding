@@ -46,7 +46,7 @@ class ContentEncoding {
    * @param {*} minimumCompressionSize Minimum body size required for compression in bytes
    */
   enableContentEncoding(apiId, minimumCompressionSize) {
-    this.serverless.cli.log(`Enabling API Gateway Content Encoding with minimum compression size = ${minimumCompressionSize}`);
+    this.serverless.cli.log(`Enabling API Gateway Content Encoding with minimum compression size = ${minimumCompressionSize} bytes`);
     const patchOperations = [{
       op: 'replace',
       path: '/minimumCompressionSize',
@@ -62,7 +62,6 @@ class ContentEncoding {
    * @param {*} apiId Target REST Api ID
    */
   disableContentEncoding(apiId) {
-    this.serverless.cli.log('Disabling API Gateway Content Encoding');
     const patchOperations = [{
       op: 'replace',
       path: '/minimumCompressionSize',
@@ -89,7 +88,7 @@ class ContentEncoding {
     const stage = this.options.stage || this.serverless.service.provider.stage;
 
     if (!this.serverless.service.custom.contentEncoding || !this.serverless.service.custom.contentEncoding.minimumCompressionSize) {
-      return this.getApiId.then(apiId => this.disableContentEncoding(apiId).then(() => this.createDeployment(apiId.stage)));
+      return this.getApiId(stage).then(apiId => this.disableContentEncoding(apiId).then(() => this.createDeployment(apiId, stage)));
     }
 
     const { minimumCompressionSize } = this.serverless.service.custom.contentEncoding;
