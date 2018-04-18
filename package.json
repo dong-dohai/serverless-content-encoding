@@ -1,9 +1,12 @@
 {
   "name": "serverless-content-encoding",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "main": "src/index.js",
-  "repository": "git@github.com:xeno-dohai/serverless-content-encoding.git",
-  "author": "Dong DO HAI <dong.do.hai@temando.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haidong-do/serverless-content-encoding.git"
+  },
+  "author": "Dong DO HAI <haidongdo1994@gmail.com>",
   "license": "MIT",
   "keywords": [
     "serverless",
