@@ -16,18 +16,15 @@
     "compression"
   ],
   "devDependencies": {
-    "eslint": "^4.14.0",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "jest": "^22.0.4",
-    "serverless": "^1.25.0",
-    "sinon": "^4.1.3"
+    "eslint-plugin-import": "^2.12.0",
+    "jest": "^23.1.0",
+    "serverless": "^1.27.3",
+    "sinon": "^5.0.10"
   },
   "scripts": {
     "test": "jest",
     "lint": "eslint ."
-  },
-  "dependencies": {
-    "is-number": "^4.0.0"
   }
 }

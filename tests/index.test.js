@@ -10,7 +10,7 @@ describe('Serverless content encoding', () => {
   let sandbox;
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     options = {
       stage: 'production',
       region: 'ap-southeast-2',

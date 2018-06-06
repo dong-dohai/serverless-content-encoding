@@ -41,3 +41,5 @@ $ serverless deploy
 ### Note
 
 This plugin is to enable Content Encoding on API Gateway for response compression. If your are looking for binary files support, please use [serverless-apigw-binary](https://www.npmjs.com/package/serverless-apigw-binary)
+
+Thanks [@evgenykireev](https://github.com/evgenykireev) for the recommendation of using `MinimumCompressionSize` in CloudFormation instead of CreateDeployment API
